@@ -1,15 +1,14 @@
 <?php
-// [01] sessão iniciada antes de qualquer HTML.
 session_start();
-// [02] cabeçalho compartilhado.
 include "includes/cabecalho.php";
 ?>
-<h2>Portal do Aluno</h2>
-<p>Bem-vindo ao sistema de cadastro do Senac!</p>
-<p><a href="cadastro.php">Cadastrar aluno</a></p>
-<p><a href="resultado.php">Consultar meu cadastro</a></p>
-<p><a href="logout.php">Sair</a></p>
-<?php
-// [03] rodapé compartilhado.
-include "includes/rodape.php";
-?>
+<section class="cartao">
+    <h2>Bem-vindo!</h2>
+    <p>Faça seu cadastro e consulte suas informações durante a navegação.</p>
+    <div class="acoes">
+        <a class="botao" href="cadastro.php">Cadastrar aluno</a>
+        <a class="botao secundario" href="resultado.php">Consultar meu cadastro</a>
+        <a class="botao secundario" href="logout.php">Sair</a>
+    </div>
+</section>
+<?php include "includes/rodape.php"; ?>

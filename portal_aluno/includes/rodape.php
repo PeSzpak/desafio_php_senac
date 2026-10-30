@@ -1,6 +1,4 @@
-<footer>
-    <hr>
-    <small>Desafio de PHP - Tecnologias para Internet</small>
-</footer>
+</main>
+<footer>Desafio de PHP · Tecnologias para Internet</footer>
 </body>
 </html>

@@ -1,34 +1,29 @@
 <?php
-// [09] inicia ou recupera a sessão.
 session_start();
-// [10] require_once garante que as funções sejam carregadas uma única vez.
 require_once "includes/funcoes.php";
 
-// [11] só processa requisições POST.
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: cadastro.php");
     exit;
 }
 
-// [12] recebe os campos (null quando o campo não foi enviado).
+// filter_input devolve false para valor inválido e null para campo ausente.
 $nome = limparTexto(filter_input(INPUT_POST, "nome") ?? "");
 $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
 $idade = filter_input(INPUT_POST, "idade", FILTER_VALIDATE_INT);
 
-// [13] validação na ordem nome -> e-mail -> idade.
-// filter_input devolve false para valor inválido e null para campo ausente.
 $erro = "";
 if ($nome === "") {
     $erro = "O nome é obrigatório.";
-} elseif ($email === false || $email === null) {
+} elseif (!validarEmail($email)) {
     $erro = "Informe um e-mail válido.";
-} elseif ($idade === false || $idade === null || $idade <= 0) {
+} elseif (!is_int($idade) || $idade <= 0) {
     $erro = "A idade deve ser um número inteiro maior que zero.";
 }
 
-// [14] em caso de erro, guarda a mensagem e os valores digitados e volta ao formulário.
 if ($erro !== "") {
     $_SESSION["erro"] = $erro;
+    // Valores brutos, para o usuário corrigir exatamente o que digitou.
     $_SESSION["dados_anteriores"] = [
         "nome" => $nome,
         "email" => $_POST["email"] ?? "",
@@ -38,12 +33,7 @@ if ($erro !== "") {
     exit;
 }
 
-// [15] cadastro válido guardado na sessão, com mensagem de sucesso.
-$_SESSION["aluno"] = [
-    "nome" => $nome,
-    "email" => $email,
-    "idade" => $idade,
-];
+$_SESSION["aluno"] = ["nome" => $nome, "email" => $email, "idade" => $idade];
 $_SESSION["mensagem"] = "Cadastro realizado com sucesso!";
 header("Location: resultado.php");
 exit;
