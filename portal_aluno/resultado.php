@@ -1,9 +1,13 @@
 <?php
-// TODO 16: iniciar a sessão antes de exibir HTML.
-// TODO 17: recuperar $aluno de $_SESSION["aluno"] ?? null.
-// TODO 18: recuperar a mensagem de $_SESSION["mensagem"] ?? "".
-// Apagar SOMENTE a mensagem após recuperá-la (flash message).
-// TODO 19: importar o cabeçalho.
+// [16] sessão iniciada antes de exibir HTML.
+session_start();
+// [17] null quando não há aluno cadastrado.
+$aluno = $_SESSION["aluno"] ?? null;
+// [18] flash message: lê e apaga só a mensagem, mantendo o aluno.
+$mensagem = $_SESSION["mensagem"] ?? "";
+unset($_SESSION["mensagem"]);
+// [19] cabeçalho compartilhado.
+include "includes/cabecalho.php";
 ?>
 <h2>Resultado do cadastro</h2>
 <?php if ($mensagem !== ""): ?>
@@ -18,5 +22,6 @@
 <?php endif; ?>
 <p><a href="cadastro.php">Novo cadastro</a> | <a href="logout.php">Encerrar sessão</a></p>
 <?php
-// TODO 20: importar o rodapé.
+// [20] rodapé compartilhado.
+include "includes/rodape.php";
 ?>

@@ -1,16 +1,27 @@
 <?php
-// TODO 04: iniciar a sessão antes de qualquer saída HTML.
+// [04] sessão iniciada antes de qualquer saída HTML.
+session_start();
 $nome = "";
 $email = "";
 $idade = "";
 $mensagem = "";
 
-// TODO 05: recuperar mensagem de erro, se houver, em $_SESSION["erro"].
-//         Após recuperar, apagar a mensagem da sessão (unset).
-// TODO 06: recuperar valores anteriores de $_SESSION["dados_anteriores"],
-//         caso existam, e depois removê-los.
+// [05] mensagem de erro exibida uma única vez.
+if (isset($_SESSION["erro"])) {
+    $mensagem = $_SESSION["erro"];
+    unset($_SESSION["erro"]);
+}
 
-// TODO 07: carregar o cabeçalho a partir da pasta includes.
+// [06] repreenche os campos com a tentativa anterior.
+if (isset($_SESSION["dados_anteriores"])) {
+    $nome = $_SESSION["dados_anteriores"]["nome"];
+    $email = $_SESSION["dados_anteriores"]["email"];
+    $idade = $_SESSION["dados_anteriores"]["idade"];
+    unset($_SESSION["dados_anteriores"]);
+}
+
+// [07] cabeçalho compartilhado.
+include "includes/cabecalho.php";
 ?>
 <h2>Cadastro de aluno</h2>
 <?php if ($mensagem !== ""): ?>
@@ -30,5 +41,6 @@ $mensagem = "";
 </form>
 <p><a href="index.php">Voltar</a></p>
 <?php
-// TODO 08: carregar o rodapé a partir da pasta includes.
+// [08] rodapé compartilhado.
+include "includes/rodape.php";
 ?>
